@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판</title>
+    <script>
+        async function loadPosts() {
+            const response = await fetch("/posts");
+            const posts = await response.json();
+            const list = document.getElementById("post-list");
+            list.innerHTML = "";
+            posts.forEach(post => {
+                const li = document.createElement("li");
+                li.innerHTML = `<a href="view.html?id=${post.id}">${post.title}</a> - ${post.author}`;
+                list.appendChild(li);
+            });
+        }
+        window.onload = loadPosts;
+    </script>
+</head>
+<body>
+<h1>게시판</h1>
+<ul id="post-list"></ul>
+<a href="create.html">새 글 작성</a>
+</body>
+</html>
